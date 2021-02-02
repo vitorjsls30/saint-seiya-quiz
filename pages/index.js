@@ -1,9 +1,14 @@
-import styled from 'styled-components'
-import Footer from '../components/Footer';
-import QuizBackground from '../components/QuizBackground';
-import QuizLogo from '../components/QuizLogo';
-import Widget from '../components/Widget';
-import GitHubCorner from '../components/GitHubCorner';
+/* eslint-disable import/no-unresolved */
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import Footer from '../src/components/Footer';
+import QuizBackground from '../src/components/QuizBackground';
+import QuizLogo from '../src/components/QuizLogo';
+import Widget from '../src/components/Widget';
+import GitHubCorner from '../src/components/GitHubCorner';
 
 import db from '../db.json';
 
@@ -19,10 +24,24 @@ export const QuizContainer = styled.div`
 `;
 
 export default function Home() {
-  return (
-    <QuizBackground>
-      <QuizContainer>
+  const router = useRouter();
+  const [name, setName] = useState('');
 
+  const onChange = (value, handlerFn) => {
+    handlerFn(value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    router.push(`quiz?name=${name}`);
+  };
+
+  return (
+    <QuizBackground backgroundImage={db.bg}>
+      <QuizContainer>
+        <Head>
+          <title>Saint Seiya Quiz - Test you knowledge!</title>
+        </Head>
         <QuizLogo />
 
         <Widget>
@@ -31,6 +50,14 @@ export default function Home() {
           </Widget.Header>
           <Widget.Content>
             <p>{db.description}</p>
+            <form onSubmit={(e) => onSubmit(e)}>
+              <div>
+                <input type="text" id="name" name="name" placeholder="What's your name?" onChange={(e) => onChange(e.target.value, setName)} />
+                <button type="submit" id="btnSubmit" name="btnSubmit" disabled={!name}>
+                  Start Quiz
+                </button>
+              </div>
+            </form>
           </Widget.Content>
         </Widget>
 
@@ -43,7 +70,7 @@ export default function Home() {
 
         <Footer />
       </QuizContainer>
-      <GitHubCorner projectUrl="https://github.com/vitorjsls30/saint-seiya-quiz"/>
+      <GitHubCorner projectUrl="https://github.com/vitorjsls30/saint-seiya-quiz" />
     </QuizBackground>
   );
 }
