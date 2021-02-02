@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 
@@ -80,10 +80,22 @@ WidgetQuestions.propTypes = {
   total: PropTypes.number.isRequired,
 };
 
+const screenStates = {
+  LOADING: 'LOADING',
+  MOUNTED: 'MOUNTED',
+  FINISHED: 'FINISHED',
+};
+
 export default function Quiz() {
   const { questions } = db;
   const idx = 0;
   const total = questions.length;
+
+  const [state, setState] = useState(screenStates.LOADING);
+
+  useEffect(() => {
+    setTimeout(() => setState(screenStates.MOUNTED), 1000);
+  }, []);
 
   return (
     <QuizBackground backgroundImage={db.bg}>
@@ -93,9 +105,10 @@ export default function Quiz() {
         </Head>
         <QuizLogo />
 
-        <WidgetQuestions question={questions[0]} index={idx} total={total} />
+        {state === screenStates.LOADING && <WidgetLoading />}
 
-        <WidgetLoading />
+        {state === screenStates.MOUNTED
+          && <WidgetQuestions question={questions[0]} index={idx} total={total} />}
 
       </QuizContainer>
     </QuizBackground>
