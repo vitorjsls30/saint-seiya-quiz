@@ -9,11 +9,13 @@ import QuizBackground from '../src/components/QuizBackground';
 import QuizLogo from '../src/components/QuizLogo';
 import Widget from '../src/components/Widget';
 import GitHubCorner from '../src/components/GitHubCorner';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
 
 import db from '../db.json';
 
 export const QuizContainer = styled.div`
-  widht: 100%;
+  width: 100%;
   max-width: 350px;
   padding-top: 45px;
   margin: auto 10%;
@@ -52,10 +54,19 @@ export default function Home() {
             <p>{db.description}</p>
             <form onSubmit={(e) => onSubmit(e)}>
               <div>
-                <input type="text" id="name" name="name" placeholder="What's your name?" onChange={(e) => onChange(e.target.value, setName)} />
-                <button type="submit" id="btnSubmit" name="btnSubmit" disabled={!name}>
+                <Input
+                  placeholder="What's your name?"
+                  onChange={(e) => onChange(e.target.value, setName)}
+                  name="name"
+                  value={name}
+                />
+                <Button
+                  type="submit"
+                  value="Start Quiz"
+                  disabled={!name}
+                >
                   Start Quiz
-                </button>
+                </Button>
               </div>
             </form>
           </Widget.Content>
