@@ -3,6 +3,7 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 import Widget from '../src/components/Widget';
+import { WidgetFinished, WidgetLoading, WidgetMissing } from '../src/components/Widget/helpers';
 import QuizContainer from '../src/components/QuizContainer';
 import QuizBackground from '../src/components/QuizBackground';
 import QuizLogo from '../src/components/QuizLogo';
@@ -10,20 +11,9 @@ import Button from '../src/components/Button';
 
 import db from '../db.json';
 
-function WidgetLoading() {
-  return (
-    <Widget>
-      <Widget.Header>
-        Loading...
-      </Widget.Header>
-      <Widget.Content>
-        [Some random description...]
-      </Widget.Content>
-    </Widget>
-  );
-}
-
-function WidgetQuestions({ question, index, total }) {
+function WidgetQuestions({
+  question, index, total, handleNext,
+}) {
   // eslint-disable-next-line arrow-body-style
   const alternatives = question.alternatives.map((item, idx) => {
     return (
@@ -46,6 +36,11 @@ function WidgetQuestions({ question, index, total }) {
     );
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleNext();
+  };
+
   return (
     <Widget>
       <Widget.Header>
@@ -62,12 +57,14 @@ function WidgetQuestions({ question, index, total }) {
       />
       <Widget.Content>
         <h2>{ question.title }</h2>
-        <p>{ alternatives }</p>
-        <Button
-          type="button"
-        >
-          Confirm
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <p>{ alternatives }</p>
+          <Button
+            type="submit"
+          >
+            Confirm
+          </Button>
+        </form>
       </Widget.Content>
     </Widget>
   );
@@ -78,25 +75,48 @@ WidgetQuestions.propTypes = {
   question: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
 };
 
 const screenStates = {
+  ERROR: 'ERROR',
   LOADING: 'LOADING',
   MOUNTED: 'MOUNTED',
   FINISHED: 'FINISHED',
 };
 
 export default function Quiz() {
+  const [state, setScreenState] = useState(screenStates.LOADING);
+
   const { questions } = db;
-  const idx = 0;
   const total = questions.length;
 
-  const [state, setState] = useState(screenStates.LOADING);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [question, setQuestion] = useState({});
 
   useEffect(() => {
-    setTimeout(() => setState(screenStates.MOUNTED), 1000);
+    setTimeout(() => {
+      if (!questions.length) {
+        setScreenState(screenStates.ERROR);
+        return;
+      }
+      setScreenState(screenStates.MOUNTED);
+    }, 1000);
   }, []);
 
+  useEffect(() => {
+    setQuestion(questions[currentIdx]);
+  }, [currentIdx]);
+
+  const handleNext = () => {
+    if (!(currentIdx < questions.length - 1)) {
+      setScreenState(screenStates.FINISHED);
+      return;
+    }
+    setCurrentIdx(currentIdx + 1);
+  };
+
+  // eslint-disable-next-line consistent-return
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
@@ -105,10 +125,21 @@ export default function Quiz() {
         </Head>
         <QuizLogo />
 
+        {state === screenStates.ERROR && <WidgetMissing />}
+
         {state === screenStates.LOADING && <WidgetLoading />}
 
-        {state === screenStates.MOUNTED
-          && <WidgetQuestions question={questions[0]} index={idx} total={total} />}
+        {state === screenStates.MOUNTED && questions.length
+          && (
+          <WidgetQuestions
+            question={question}
+            index={currentIdx}
+            total={total}
+            handleNext={handleNext}
+          />
+          )}
+
+        {state === screenStates.FINISHED && <WidgetFinished />}
 
       </QuizContainer>
     </QuizBackground>
