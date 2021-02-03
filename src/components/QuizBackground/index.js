@@ -26,7 +26,7 @@ const QuizBackground = styled.div`
       z-index: 1;
     }
     *:first-child {
-      position> relative;
+      position: relative;
       z-index: 10;
     }
   }
