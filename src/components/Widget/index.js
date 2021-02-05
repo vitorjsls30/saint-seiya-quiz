@@ -65,7 +65,7 @@ Widget.Topic = styled.a`
 `;
 
 Widget.AnswerFeedback = styled.div`
-  padding: 10px 0px;
+  padding: 0;
   text-align: center;
   border-radius: ${({ theme }) => theme.borderRadius};
 
