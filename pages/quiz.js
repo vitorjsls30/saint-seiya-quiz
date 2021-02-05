@@ -11,41 +11,64 @@ import Button from '../src/components/Button';
 
 import db from '../db.json';
 
+const screenStates = {
+  ERROR: 'ERROR',
+  LOADING: 'LOADING',
+  MOUNTED: 'MOUNTED',
+  FINISHED: 'FINISHED',
+};
+
 function WidgetQuestions({
-  question, index, total, handleNext,
+  question, index, total, handleNext, handleAnswers,
 }) {
+  const [isSubmited, setIsSubmited] = useState(false);
+  const [isCorrect, setIsCorrect] = useState();
+  const itemAnswer = question.answer;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setIsSubmited(true);
+    handleAnswers(isCorrect);
+
+    setTimeout(() => {
+      setIsSubmited(false);
+      handleNext();
+    }, 2500);
+  };
+
+  const handleSelected = (selected) => {
+    let match = false;
+    if (selected === itemAnswer) {
+      match = true;
+    }
+    setIsCorrect(match);
+    console.log('handling selected', match);
+  };
+
   // eslint-disable-next-line arrow-body-style
   const alternatives = question.alternatives.map((item, idx) => {
     return (
-      <Widget.Topic
-        as="label"
-        htmlFor={`item_${idx}`}
-        // eslint-disable-next-line react/no-array-index-key
-        key={`item_${idx}`}
-      >
+      // eslint-disable-next-line react/no-array-index-key
+      <Widget.Topic as="label" htmlFor={`item_${idx}`} key={`item_${idx}`}>
         <input
-          style={{
-            display: 'none',
-          }}
           type="radio"
           id={`item_${idx}`}
           name={`qestion_${index}`}
+          onClick={() => handleSelected(idx)}
         />
         {item}
       </Widget.Topic>
     );
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleNext();
-  };
-
   return (
     <Widget>
+
       <Widget.Header>
         <h3>{`Question ${index + 1} of ${total}`}</h3>
       </Widget.Header>
+
       <img
         alt="description"
         style={{
@@ -55,37 +78,26 @@ function WidgetQuestions({
         }}
         src="https://placehold.it/400x400"
       />
+
       <Widget.Content>
         <h2>{ question.title }</h2>
         <form onSubmit={handleSubmit}>
           <p>{ alternatives }</p>
-          <Button
-            type="submit"
-          >
-            Confirm
-          </Button>
+          <Button type="submit"> Confirm </Button>
         </form>
+
+        <Widget.AnswerFeedback>
+          { isSubmited && isCorrect && <p className="matched">That&apos;s it!!</p> }
+          { isSubmited && !isCorrect && <p className="wrong">Ops! Wrong!</p> }
+        </Widget.AnswerFeedback>
+
       </Widget.Content>
+
     </Widget>
   );
 }
 
-WidgetQuestions.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  question: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
-  handleNext: PropTypes.func.isRequired,
-};
-
-const screenStates = {
-  ERROR: 'ERROR',
-  LOADING: 'LOADING',
-  MOUNTED: 'MOUNTED',
-  FINISHED: 'FINISHED',
-};
-
-export default function Quiz() {
+function Quiz() {
   const [state, setScreenState] = useState(screenStates.LOADING);
 
   const { questions } = db;
@@ -93,6 +105,7 @@ export default function Quiz() {
 
   const [currentIdx, setCurrentIdx] = useState(0);
   const [question, setQuestion] = useState({});
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -105,7 +118,8 @@ export default function Quiz() {
   }, []);
 
   useEffect(() => {
-    setQuestion(questions[currentIdx]);
+    const current = questions[currentIdx];
+    setQuestion(current);
   }, [currentIdx]);
 
   const handleNext = () => {
@@ -114,6 +128,11 @@ export default function Quiz() {
       return;
     }
     setCurrentIdx(currentIdx + 1);
+  };
+
+  const handleAnswers = (answer) => {
+    setAnswers([...answers, answer]);
+    console.log('ANSWERS', answers);
   };
 
   // eslint-disable-next-line consistent-return
@@ -136,6 +155,7 @@ export default function Quiz() {
             index={currentIdx}
             total={total}
             handleNext={handleNext}
+            handleAnswers={handleAnswers}
           />
           )}
 
@@ -145,3 +165,14 @@ export default function Quiz() {
     </QuizBackground>
   );
 }
+
+WidgetQuestions.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  question: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  handleNext: PropTypes.func.isRequired,
+  handleAnswers: PropTypes.func.isRequired,
+};
+
+export default Quiz;

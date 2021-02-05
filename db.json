@@ -7,7 +7,7 @@
       "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
       "title": "Who was Seiya's Opponent in the Fight for the Pegasus Armor ?",
       "description": "Every journey has a begining...",
-      "answer": 2,
+      "answer": 1,
       "alternatives": [
         "Marim",
         "Cassius",
@@ -19,11 +19,11 @@
       "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
       "title": "Which is one of the primordial rule for the Amazons ?",
       "description": "It's just a matter of duty",
-      "answer": 0,
+      "answer": 2,
       "alternatives": [
-         "They shall never reveal their faces",
-         "They shall never get married",
-         "They Cannot talk to anybody",
+        "They shall never get married",
+        "They Cannot talk to anybody",
+        "They shall never reveal their faces",
          "Wear always pink clothes"
       ]
     }

@@ -64,4 +64,24 @@ Widget.Topic = styled.a`
   }
 `;
 
+Widget.AnswerFeedback = styled.div`
+  padding: 10px 0px;
+  text-align: center;
+  border-radius: ${({ theme }) => theme.borderRadius};
+
+  p {
+    padding: 7px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  p.matched {
+    background-color: ${({ theme }) => theme.colors.success};
+  }
+
+  p.wrong {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
 export default Widget;
