@@ -84,4 +84,20 @@ Widget.AnswerFeedback = styled.div`
   }
 `;
 
+Widget.Form = styled.form`
+  label {
+    &[data-issubmited="true"] {
+      &[data-iscorrect="true"] {
+        background-color: ${({ theme }) => theme.colors.success};
+      }
+
+      &[data-iscorrect="false"] {
+        background-color: ${({ theme }) => theme.colors.secondary};
+      }
+    }
+    &:focus {
+      opacity: 1;
+    }
+}`;
+
 export default Widget;

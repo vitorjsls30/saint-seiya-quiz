@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Widget from '../index';
+import WidgetAlternatives from '../WidgetAlterrnatives';
 import Button from '../../Button';
 
 function WidgetQuestions({
@@ -10,11 +11,11 @@ function WidgetQuestions({
   const [isSubmited, setIsSubmited] = useState(false);
   const [isCorrect, setIsCorrect] = useState();
   const [selected, setSelected] = useState();
-  const itemAnswer = question.answer;
+  const questionAnswer = question.answer;
 
   useEffect(() => {
     let match = false;
-    if (selected === itemAnswer) {
+    if (selected === questionAnswer) {
       match = true;
     }
     setIsCorrect(match);
@@ -31,22 +32,6 @@ function WidgetQuestions({
       handleNext();
     }, 2500);
   };
-
-  // eslint-disable-next-line arrow-body-style
-  const alternatives = question.alternatives.map((item, idx) => {
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Widget.Topic as="label" htmlFor={`item_${idx}`} key={`item_${idx}`}>
-        <input
-          type="radio"
-          id={`item_${idx}`}
-          name={`qestion_${index}`}
-          onClick={() => setSelected(idx)}
-        />
-        {item}
-      </Widget.Topic>
-    );
-  });
 
   return (
     <Widget>
@@ -67,16 +52,21 @@ function WidgetQuestions({
 
       <Widget.Content>
         <h2>{ question.title }</h2>
-        <form onSubmit={handleSubmit}>
-          <p>{ alternatives }</p>
+        <Widget.Form
+          onSubmit={handleSubmit}
+        >
+          <p>
+            <WidgetAlternatives
+              alternatives={question.alternatives}
+              handleSelected={setSelected}
+              questionIdx={index}
+              questionAnswer={questionAnswer}
+              isSubmited={isSubmited}
+              selectedValue={selected}
+            />
+          </p>
           <Button type="submit" disabled={typeof selected === 'undefined'}> Confirm </Button>
-        </form>
-
-        <Widget.AnswerFeedback>
-          { isSubmited && isCorrect && <p className="matched">That&apos;s it!!</p> }
-          { isSubmited && !isCorrect && <p className="wrong">Ops! Wrong!</p> }
-        </Widget.AnswerFeedback>
-
+        </Widget.Form>
       </Widget.Content>
 
     </Widget>
