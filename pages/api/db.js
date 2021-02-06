@@ -1,6 +1,6 @@
 import db from '../../db.json';
 
-export default function APIDB(req, res) {
+export default function apiHandler(req, res) {
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
