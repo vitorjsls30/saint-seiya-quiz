@@ -42,6 +42,7 @@ function Quiz() {
   }, [currentIdx]);
 
   const handleNext = () => {
+    document.getElementById(`item__${currentIdx}`).checked = false;
     if (!(currentIdx < questions.length - 1)) {
       setScreenState(screenStates.FINISHED);
       return;
@@ -51,7 +52,6 @@ function Quiz() {
 
   const handleAnswers = (answer) => {
     setAnswers([...answers, answer]);
-    console.log('ANSWERS', answers);
   };
 
   // eslint-disable-next-line consistent-return

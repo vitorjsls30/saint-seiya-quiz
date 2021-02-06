@@ -34,11 +34,11 @@ function WidgetAlternatives({
     >
       <input
         type="radio"
-        id={`item_${idx}`}
-        name={`qestion_${questionIdx}`}
+        id={`item__${idx}`}
+        name={`question_${questionIdx}`}
         onClick={() => handleSelected(idx)}
       />
-      {item}
+      {`  ${item}`}
     </Widget.Topic>
   ));
   return items;
