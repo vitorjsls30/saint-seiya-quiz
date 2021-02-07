@@ -27,6 +27,7 @@ function WidgetMissing() {
   );
 }
 
+// TODO - Show the user score here...
 function WidgetFinished() {
   return (
     <Widget>

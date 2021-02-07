@@ -7,6 +7,7 @@ import Footer from '../src/components/Footer';
 import QuizContainer from '../src/components/QuizContainer';
 import QuizBackground from '../src/components/QuizBackground';
 import QuizLogo from '../src/components/QuizLogo';
+import QuizExternal from '../src/components/QuizExternal';
 import Widget from '../src/components/Widget';
 import GitHubCorner from '../src/components/GitHubCorner';
 import Input from '../src/components/Input';
@@ -61,12 +62,7 @@ export default function Home() {
           </Widget.Content>
         </Widget>
 
-        <Widget>
-          <Widget.Content>
-            <p>Quizes da Galera</p>
-            <p>Lorem ipsum dolor sit amet...</p>
-          </Widget.Content>
-        </Widget>
+        <QuizExternal externals={db.external} />
 
         <Footer />
       </QuizContainer>

@@ -1,7 +1,7 @@
 {
   "bg": "https://scontent.fstu3-1.fna.fbcdn.net/v/t1.0-9/94124118_2927029597380393_5222478845214457856_o.png?_nc_cat=111&ccb=2&_nc_sid=730e14&_nc_ohc=mD_iEpNxOq4AX96RKn4&_nc_ht=scontent.fstu3-1.fna&oh=e188d1c9e468fb068b3bfd879ee9f250&oe=603C0E8C",
   "title": "Saint Seiya Quiz",
-  "description": "Have you ever felt your Cosmo!?",
+  "description": "Prove that you know everything about Saint Seiya in this amazing quiz!",
   "questions": [
     {
       "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
@@ -29,7 +29,8 @@
     }
   ],
   "external": [
-    ""
+    "https://github.com/daniloamsilva/alura_pokemon_quiz",
+    "https://github.com/LeonardoT07/aluraquiz-coffee"
   ],
   "theme": {
     "colors": {
