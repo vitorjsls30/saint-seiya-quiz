@@ -29,8 +29,8 @@
     }
   ],
   "external": [
-    "https://github.com/daniloamsilva/alura_pokemon_quiz",
-    "https://github.com/LeonardoT07/aluraquiz-coffee"
+    "https://aluraquiz-coffee.leonardot07.vercel.app/",
+    "https://alura-pokemon-quiz.daniloamsilva.vercel.app/"
   ],
   "theme": {
     "colors": {
