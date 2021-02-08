@@ -21,7 +21,7 @@ const screenStates = {
 function QuizScreen({ externalDB }) {
   const [state, setScreenState] = useState(screenStates.LOADING);
 
-  const { questions } = externalDB.length ? externalDB : db;
+  const { questions } = externalDB.questions ? externalDB : db;
   const total = questions.length;
 
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -88,11 +88,11 @@ function QuizScreen({ externalDB }) {
 }
 
 QuizScreen.defaultProps = {
-  externalDB: [],
+  externalDB: {},
 };
 
 QuizScreen.propTypes = {
-  externalDB: PropTypes.array,
+  externalDB: PropTypes.object,
 };
 
 export default QuizScreen;

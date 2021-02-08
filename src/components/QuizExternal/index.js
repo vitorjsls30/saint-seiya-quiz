@@ -19,10 +19,12 @@ function QuizExternal({ externals }) {
 
   externalQuizes = externals.map((item, idx) => {
     const { name, author } = extractURL(item);
+    const redirectLink = `${name}.${author}`;
     return (
       <li key={`quiz__${idx}`}>
-        <a href={item}>
-          { `${name}/${author}` }
+        {/* todo - link as 'name.author' */}
+        <a href={`quiz/${redirectLink}`}>
+          { redirectLink }
         </a>
       </li>
     );
