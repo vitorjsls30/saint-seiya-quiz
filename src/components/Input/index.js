@@ -13,7 +13,6 @@ const InputBase = styled.input`
   margin-bottom: 25px;
 `;
 
-
 export default function Input({ onChange, placeholder, ...props }) {
   return (
     <div>

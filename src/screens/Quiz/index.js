@@ -1,13 +1,15 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-import { WidgetFinished, WidgetLoading, WidgetMissing } from '../src/components/Widget/helpers';
-import QuizContainer from '../src/components/QuizContainer';
-import QuizBackground from '../src/components/QuizBackground';
-import QuizLogo from '../src/components/QuizLogo';
-import WidgetQuestions from '../src/components/Widget/WdgetQuestions';
+import { WidgetFinished, WidgetLoading, WidgetMissing } from '../../components/Widget/helpers';
+import QuizContainer from '../../components/QuizContainer';
+import QuizBackground from '../../components/QuizBackground';
+import QuizLogo from '../../components/QuizLogo';
+import WidgetQuestions from '../../components/Widget/WdgetQuestions';
 
-import db from '../db.json';
+import db from '../../../db.json';
 
 const screenStates = {
   ERROR: 'ERROR',
@@ -16,10 +18,10 @@ const screenStates = {
   FINISHED: 'FINISHED',
 };
 
-function Quiz() {
+function QuizScreen({ externalDB }) {
   const [state, setScreenState] = useState(screenStates.LOADING);
 
-  const { questions } = db;
+  const { questions } = externalDB.length ? externalDB : db;
   const total = questions.length;
 
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -85,4 +87,12 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+QuizScreen.defaultProps = {
+  externalDB: [],
+};
+
+QuizScreen.propTypes = {
+  externalDB: PropTypes.array,
+};
+
+export default QuizScreen;
