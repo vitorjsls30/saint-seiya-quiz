@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import { ThemeProvider } from 'styled-components';
 
 import { WidgetFinished, WidgetLoading, WidgetMissing } from '../../components/Widget/helpers';
 import QuizContainer from '../../components/QuizContainer';
@@ -21,7 +22,7 @@ const screenStates = {
 function QuizScreen({ externalDB, fetchError }) {
   const [state, setScreenState] = useState(screenStates.LOADING);
 
-  const { questions } = externalDB.questions ? externalDB : db;
+  const { questions, bg, theme } = Object.entries(externalDB).length ? externalDB : db;
   const total = questions.length;
 
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -58,32 +59,34 @@ function QuizScreen({ externalDB, fetchError }) {
 
   // eslint-disable-next-line consistent-return
   return (
-    <QuizBackground backgroundImage={db.bg}>
-      <QuizContainer>
-        <Head>
-          <title>Saint Seiya Quiz - Test you knowledge!</title>
-        </Head>
-        <QuizLogo />
+    <ThemeProvider theme={theme}>
+      <QuizBackground backgroundImage={bg}>
+        <QuizContainer>
+          <Head>
+            <title>Saint Seiya Quiz - Test you knowledge!</title>
+          </Head>
+          <QuizLogo />
 
-        {state === screenStates.ERROR && <WidgetMissing />}
+          {state === screenStates.ERROR && <WidgetMissing />}
 
-        {state === screenStates.LOADING && <WidgetLoading />}
+          {state === screenStates.LOADING && <WidgetLoading />}
 
-        {state === screenStates.MOUNTED && questions.length
-          && (
-          <WidgetQuestions
-            question={question}
-            index={currentIdx}
-            total={total}
-            handleNext={handleNext}
-            handleAnswers={handleAnswers}
-          />
-          )}
+          {state === screenStates.MOUNTED && questions.length
+            && (
+            <WidgetQuestions
+              question={question}
+              index={currentIdx}
+              total={total}
+              handleNext={handleNext}
+              handleAnswers={handleAnswers}
+            />
+            )}
 
-        {state === screenStates.FINISHED && <WidgetFinished />}
+          {state === screenStates.FINISHED && <WidgetFinished />}
 
-      </QuizContainer>
-    </QuizBackground>
+        </QuizContainer>
+      </QuizBackground>
+    </ThemeProvider>
   );
 }
 

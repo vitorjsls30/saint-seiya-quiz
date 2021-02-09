@@ -47,7 +47,7 @@ function WidgetQuestions({
           height: '150px',
           objectFit: 'cover',
         }}
-        src="https://placehold.it/400x400"
+        src={question.image}
       />
 
       <Widget.Content>
