@@ -22,10 +22,11 @@ function QuizExternal({ externals }) {
     const redirectLink = `${name}.${author}`;
     return (
       <li key={`quiz__${idx}`}>
-        {/* todo - link as 'name.author' */}
-        <a href={`quiz/${redirectLink}`}>
+        <Widget.Topic
+          href={`quiz/${redirectLink}`}
+        >
           { redirectLink }
-        </a>
+        </Widget.Topic>
       </li>
     );
   });
