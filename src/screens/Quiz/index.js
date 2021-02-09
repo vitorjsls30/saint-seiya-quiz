@@ -18,7 +18,7 @@ const screenStates = {
   FINISHED: 'FINISHED',
 };
 
-function QuizScreen({ externalDB }) {
+function QuizScreen({ externalDB, fetchError }) {
   const [state, setScreenState] = useState(screenStates.LOADING);
 
   const { questions } = externalDB.questions ? externalDB : db;
@@ -30,7 +30,7 @@ function QuizScreen({ externalDB }) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (!questions.length) {
+      if (!questions.length || fetchError) {
         setScreenState(screenStates.ERROR);
         return;
       }
@@ -89,10 +89,12 @@ function QuizScreen({ externalDB }) {
 
 QuizScreen.defaultProps = {
   externalDB: {},
+  fetchError: false,
 };
 
 QuizScreen.propTypes = {
   externalDB: PropTypes.object,
+  fetchError: PropTypes.bool,
 };
 
 export default QuizScreen;

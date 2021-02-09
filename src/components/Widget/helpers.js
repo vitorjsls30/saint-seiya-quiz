@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+
 import Widget from './index';
 
 function WidgetLoading() {
@@ -21,7 +23,9 @@ function WidgetMissing() {
         Uops!!
       </Widget.Header>
       <Widget.Content>
-        Looks like there&apos;s no questions now. Try again later!
+        <p>Looks like there&apos;s no questions on this Quiz.</p>
+        <p>Try again later!</p>
+        <p><Link href="/">Click here to Restart</Link></p>
       </Widget.Content>
     </Widget>
   );

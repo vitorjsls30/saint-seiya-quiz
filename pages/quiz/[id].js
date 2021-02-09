@@ -7,11 +7,10 @@ import PropTypes from 'prop-types';
 import QuizScreen from '../../src/screens/Quiz';
 
 function ExternalQuiz({ externalDB }) {
-  const router = useRouter();
-  if (!externalDB) router.push('');
+  const { error } = externalDB;
 
   return (
-    <QuizScreen externalDB={externalDB} />
+    <QuizScreen externalDB={externalDB} fetchError={error} />
   );
 }
 
@@ -21,6 +20,7 @@ ExternalQuiz.propTypes = {
 
 export async function getServerSideProps(context) {
   const [name, author] = context.query.id.split('.');
+
   const externalDB = await fetch(`https://${name}.${author}.vercel.app/api/db`)
     .then((response) => {
       if (response.ok) {
@@ -29,12 +29,8 @@ export async function getServerSideProps(context) {
       throw new Error('Could not retrieve api/db data');
     })
     .catch((err) => {
-      return {
-        redirect: {
-          destination: '/quiz',
-          permanent: false,
-        }
-      };
+      console.error('Could not retrieve quiz data: ', err);
+      return { error: true };
     });
   return { props: { externalDB } };
 }

@@ -40,13 +40,15 @@ Widget.Content = styled.div`
   & > *:last-child {
     margin-bottom: 0;
   }
+
+  a {
+    text-decoration:none;
+  }
+
   ul {
     list-style: none;
     padding: 0;
 
-    & a {
-      text-decoration:none;
-    }
   }
 `;
 
