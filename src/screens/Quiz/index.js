@@ -82,7 +82,7 @@ function QuizScreen({ externalDB, fetchError }) {
             />
             )}
 
-          {state === screenStates.FINISHED && <WidgetFinished />}
+          {state === screenStates.FINISHED && <WidgetFinished answers={answers} />}
 
         </QuizContainer>
       </QuizBackground>

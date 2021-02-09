@@ -1,7 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
 import QuizScreen from '../../src/screens/Quiz';
