@@ -2,8 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Widget from './index';
+import Button from '../Button';
 
 function WidgetLoading() {
   return (
@@ -35,22 +37,39 @@ function WidgetMissing() {
 
 // TODO - Show the user score here...
 function WidgetFinished({ answers }) {
+  const router = useRouter();
+  let userName = '';
+
+  const { name } = router.query;
+  if (name) userName = ` ${name}`;
+
   const matches = answers.filter((item) => item).length;
   const errors = answers.filter((item) => !item).length;
   return (
     <Widget>
       <Widget.Header>
-        Quiz Finished!
+        {`Hi${userName}! Thanks for Playing!`}
       </Widget.Header>
       <Widget.Content>
-        <p>Your Score:</p>
-        <p>
-          <ul>
-            <li>{`Scored: ${matches}`}</li>
-            <li>{`Missed: ${errors}`}</li>
-          </ul>
-        </p>
-        <p><Link href="/">Play again!</Link></p>
+        <p>That&apos;s Your Score:</p>
+        <ul>
+          <li>{`Scored: ${matches}`}</li>
+          <li>{`Missed: ${errors}`}</li>
+        </ul>
+        <Link
+          href="/"
+          style={{
+            color: '#fff',
+            textDecoration: 'none',
+          }}
+        >
+          <Button
+            type="button"
+            value="Play Again!"
+          >
+            Play Again!
+          </Button>
+        </Link>
       </Widget.Content>
     </Widget>
   );

@@ -7,7 +7,6 @@ import { ThemeProvider } from 'styled-components';
 import { WidgetFinished, WidgetLoading, WidgetMissing } from '../../components/Widget/helpers';
 import QuizContainer from '../../components/QuizContainer';
 import QuizBackground from '../../components/QuizBackground';
-import QuizLogo from '../../components/QuizLogo';
 import WidgetQuestions from '../../components/Widget/WdgetQuestions';
 
 import db from '../../../db.json';
@@ -65,7 +64,6 @@ function QuizScreen({ externalDB, fetchError }) {
           <Head>
             <title>Saint Seiya Quiz - Test you knowledge!</title>
           </Head>
-          <QuizLogo />
 
           {state === screenStates.ERROR && <WidgetMissing />}
 
