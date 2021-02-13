@@ -3,6 +3,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 
 import Widget from '../Widget';
 import Link from '../Link';
@@ -38,7 +39,16 @@ function QuizExternal({ externals }) {
   }
 
   return (
-    <Widget>
+    <Widget
+      as={motion.section}
+      transition={{ delay: 1, duration: 0.5 }}
+      variants={{
+        show: { opacity: 1 },
+        hidden: { opacity: 0 },
+      }}
+      initial="hidden"
+      animate="show"
+    >
       <Widget.Content>
         <p>Quizes da Galera</p>
         <ul>

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 import Footer from '../src/components/Footer';
 import QuizContainer from '../src/components/QuizContainer';
@@ -34,7 +35,16 @@ export default function Home() {
           <title>Saint Seiya Quiz - Test you knowledge!</title>
         </Head>
 
-        <Widget>
+        <Widget
+          as={motion.section}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          variants={{
+            show: { opacity: 1 },
+            hidden: { opacity: 0 },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           <Widget.Header>
             <h1>{db.title}</h1>
           </Widget.Header>
