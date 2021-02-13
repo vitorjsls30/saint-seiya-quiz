@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Widget from '../index';
 import WidgetAlternatives from '../WidgetAlterrnatives';
 import Button from '../../Button';
+import BackLinkArrow from '../../BackLinkArrow';
 
 function WidgetQuestions({
   question, index, total, handleNext, handleAnswers,
@@ -37,6 +38,7 @@ function WidgetQuestions({
     <Widget>
 
       <Widget.Header>
+        <BackLinkArrow href="/" />
         <h3>{`Question ${index + 1} of ${total}`}</h3>
       </Widget.Header>
 

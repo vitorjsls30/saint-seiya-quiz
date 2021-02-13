@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Widget from '../Widget';
+import Link from '../Link';
 
 function extractURL(url) {
   const replaced = url.replace(/\//g, '')
@@ -23,7 +24,8 @@ function QuizExternal({ externals }) {
     return (
       <li key={`quiz__${idx}`}>
         <Widget.Topic
-          href={`quiz/${redirectLink}`}
+          as={Link}
+          href={`/quiz/${redirectLink}`}
         >
           { redirectLink }
         </Widget.Topic>

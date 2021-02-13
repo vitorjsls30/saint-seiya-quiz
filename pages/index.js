@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import Footer from '../src/components/Footer';
 import QuizContainer from '../src/components/QuizContainer';
 import QuizBackground from '../src/components/QuizBackground';
-import QuizLogo from '../src/components/QuizLogo';
 import QuizExternal from '../src/components/QuizExternal';
 import Widget from '../src/components/Widget';
 import GitHubCorner from '../src/components/GitHubCorner';
@@ -34,7 +33,6 @@ export default function Home() {
         <Head>
           <title>Saint Seiya Quiz - Test you knowledge!</title>
         </Head>
-        <QuizLogo />
 
         <Widget>
           <Widget.Header>
