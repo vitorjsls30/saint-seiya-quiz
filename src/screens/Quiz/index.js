@@ -43,13 +43,13 @@ function QuizScreen({ externalDB, fetchError }) {
     setQuestion(current);
   }, [currentIdx]);
 
-  const handleNext = () => {
-    document.getElementById(`item__${currentIdx}`).checked = false;
+  const handleNext = (selected) => {
     if (!(currentIdx < questions.length - 1)) {
       setScreenState(screenStates.FINISHED);
       return;
     }
     setCurrentIdx(currentIdx + 1);
+    document.getElementById(`item__${selected}`).checked = false;
   };
 
   const handleAnswers = (answer) => {

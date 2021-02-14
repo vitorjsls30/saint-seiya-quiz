@@ -30,7 +30,7 @@ function WidgetQuestions({
 
     setTimeout(() => {
       setIsSubmited(false);
-      handleNext();
+      handleNext(selected);
     }, 2500);
   };
 
