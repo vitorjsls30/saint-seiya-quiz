@@ -7,10 +7,12 @@ import { motion } from 'framer-motion';
 import QuizContainer from '../src/components/QuizContainer';
 import QuizBackground from '../src/components/QuizBackground';
 import QuizExternal from '../src/components/QuizExternal';
+import QuizLogo from '../src/components/QuizLogo';
 import Widget from '../src/components/Widget';
 import GitHubCorner from '../src/components/GitHubCorner';
 import Input from '../src/components/Input';
 import Button from '../src/components/Button';
+import Footer from '../src/components/Footer';
 
 import db from '../db.json';
 
@@ -33,6 +35,8 @@ export default function Home() {
         <Head>
           <title>Saint Seiya Quiz - Test you knowledge!</title>
         </Head>
+
+        <QuizLogo />
 
         <Widget
           as={motion.section}
@@ -70,6 +74,8 @@ export default function Home() {
         </Widget>
 
         <QuizExternal externals={db.external} />
+
+        <Footer />
 
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/vitorjsls30/saint-seiya-quiz" />
