@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 
-import Footer from '../src/components/Footer';
 import QuizContainer from '../src/components/QuizContainer';
 import QuizBackground from '../src/components/QuizBackground';
 import QuizExternal from '../src/components/QuizExternal';
@@ -72,7 +71,6 @@ export default function Home() {
 
         <QuizExternal externals={db.external} />
 
-        <Footer />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/vitorjsls30/saint-seiya-quiz" />
     </QuizBackground>
